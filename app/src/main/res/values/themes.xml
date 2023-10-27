@@ -2,7 +2,7 @@
 <resources>
 <!--this will make the top status bar and bottom nav bar disapper to have the screen on the whole screen-->
     <style name="Theme.NewsApp" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
     </style>
 </resources>

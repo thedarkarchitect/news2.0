@@ -20,8 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.newsapp.utils.Dimen.MediumPadding1
 import com.example.newsapp.utils.Dimen.MediumPadding2
-import com.example.newsapp.presentation.onboarding.Page
-import com.example.newsapp.presentation.onboarding.pages
 import com.example.newsapp.ui.theme.NewsAppTheme
 
 @Composable

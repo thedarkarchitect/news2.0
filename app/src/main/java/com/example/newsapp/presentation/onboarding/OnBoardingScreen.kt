@@ -1,4 +1,4 @@
-package com.example.newsapp.presentation.onboarding.components
+package com.example.newsapp.presentation.onboarding
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -22,12 +22,16 @@ import com.example.newsapp.utils.Dimen
 import com.example.newsapp.utils.Dimen.PageIndicatorWidth
 import com.example.newsapp.presentation.common.NewsButton
 import com.example.newsapp.presentation.common.NewsTextButton
-import com.example.newsapp.presentation.onboarding.pages
+import com.example.newsapp.presentation.onboarding.components.OnBoardingPage
+import com.example.newsapp.presentation.onboarding.components.PageIndicator
+import com.example.newsapp.presentation.onboarding.components.pages
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen(){
+fun OnBoardingScreen(
+    event: (OnBoardingEvents) -> Unit
+){
     Column (
         modifier = Modifier.fillMaxSize()
     ) {
@@ -54,7 +58,7 @@ fun OnBoardingScreen(){
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = Dimen.MediumPadding2)
-                .navigationBarsPadding(),
+                .navigationBarsPadding(),//Adds padding to accommodate the navigation bars insets
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ){
@@ -83,7 +87,8 @@ fun OnBoardingScreen(){
                     text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if(pagerState.currentPage == 3){
+                            if(pagerState.currentPage == 2){
+                                event(OnBoardingEvents.SaveAppEntry)
                                 //TODO: Navigate to HomeScreen
                             } else {
                                 pagerState.animateScrollToPage(
