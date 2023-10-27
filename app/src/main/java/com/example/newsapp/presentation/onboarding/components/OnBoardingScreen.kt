@@ -18,8 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.newsapp.presentation.Dimen
-import com.example.newsapp.presentation.Dimen.PageIndicatorWidth
+import com.example.newsapp.utils.Dimen
+import com.example.newsapp.utils.Dimen.PageIndicatorWidth
 import com.example.newsapp.presentation.common.NewsButton
 import com.example.newsapp.presentation.common.NewsTextButton
 import com.example.newsapp.presentation.onboarding.pages
@@ -31,12 +31,12 @@ fun OnBoardingScreen(){
     Column (
         modifier = Modifier.fillMaxSize()
     ) {
-        val pagerState = rememberPagerState (initialPage = 0) {
+        val pagerState = rememberPagerState (initialPage = 0) { // this tracks the page you on using the page size
             pages.size
         }
 
         val buttonState = remember {
-            derivedStateOf {
+            derivedStateOf { //this tracks the page and parses the values needed in the button depending on the screen we on
                 when(pagerState.currentPage){ //this changes the buttom values usingin  state
                    0 -> listOf("", "Next")
                    1 -> listOf("Back", "Next")
@@ -46,7 +46,7 @@ fun OnBoardingScreen(){
             }
         }
         
-        HorizontalPager(state = pagerState) {index ->
+        HorizontalPager(state = pagerState) {index -> // this tracks and allows pages to be scrolled horizontally
             OnBoardingPage(page = pages[index])
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -72,7 +72,7 @@ fun OnBoardingScreen(){
                     NewsTextButton(
                         text = buttonState.value[0],
                         onClick = {
-                            scope.launch {
+                            scope.launch {//this will track the button values and the animate the scroll of the pages and also track the page state
                                 pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
                             }
                         }

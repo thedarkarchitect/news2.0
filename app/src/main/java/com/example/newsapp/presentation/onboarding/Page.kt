@@ -3,7 +3,7 @@ package com.example.newsapp.presentation.onboarding
 import androidx.annotation.DrawableRes
 import com.example.newsapp.R
 
-data class Page(
+data class Page( // data to be put on  the onBoarding screen
     val title: String,
     val description: String,
     @DrawableRes val image: Int

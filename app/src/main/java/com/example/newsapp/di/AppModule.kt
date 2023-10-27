@@ -7,6 +7,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
+//this will handle dependency injection for the whole application
 
 }
