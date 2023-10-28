@@ -11,4 +11,6 @@ object Dimen {
 
     val PageIndicatorWidth = 52.dp
 
+    val ArticleCardSize = 96.dp
+
 }

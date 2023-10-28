@@ -18,6 +18,9 @@ class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                Color.TRANSPARENT, Color.TRANSPARENT
+            ),
             navigationBarStyle = SystemBarStyle.light(
                 Color.TRANSPARENT, Color.TRANSPARENT
             )

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -58,6 +59,7 @@ fun OnBoardingScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = Dimen.MediumPadding2)
+                .statusBarsPadding()
                 .navigationBarsPadding(),//Adds padding to accommodate the navigation bars insets
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
