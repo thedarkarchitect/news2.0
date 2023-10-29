@@ -7,6 +7,11 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.example.newsapp.presentation.navGraph.NewsNavGraph
@@ -34,8 +39,13 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             NewsAppTheme {
-                val startDestination = viewModel.startDestination
-               NewsNavGraph(startDestination = startDestination)
+                Box(modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxSize()
+                ){
+                    val startDestination = viewModel.startDestination
+                    NewsNavGraph(startDestination = startDestination)
+                }
             }
         }
     }

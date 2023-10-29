@@ -3,6 +3,7 @@ package com.example.newsapp.presentation.search.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -13,6 +14,8 @@ import com.example.newsapp.presentation.common.SearchBar
 import com.example.newsapp.presentation.search.SearchEvent
 import com.example.newsapp.presentation.search.SearchState
 import com.example.newsapp.utils.Dimen.MediumPadding1
+import com.example.newsapp.presentation.common.ArticleList
+import com.example.newsapp.presentation.navGraph.ScreenRoute
 
 @Composable
 fun SearchScreen(
@@ -29,6 +32,7 @@ fun SearchScreen(
                 end = MediumPadding1,
             )
             .statusBarsPadding()
+            .fillMaxSize()
     ){
         SearchBar(
             text = state.searchQuery,
@@ -44,9 +48,9 @@ fun SearchScreen(
         Spacer(modifier = modifier.height(MediumPadding1))
         state.articles?.let { data ->
             val articles = data.collectAsLazyPagingItems()
-            ArticlesList(
+            ArticleList(
                 articles = articles,
-                onClick = {}
+                onClick = {navigate(ScreenRoute.DetailsScreen.route)}
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.example.newsapp.presentation.onboarding
+package com.example.newsapp.presentation.onboarding.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +23,7 @@ import com.example.newsapp.utils.Dimen
 import com.example.newsapp.utils.Dimen.PageIndicatorWidth
 import com.example.newsapp.presentation.common.NewsButton
 import com.example.newsapp.presentation.common.NewsTextButton
-import com.example.newsapp.presentation.onboarding.components.OnBoardingPage
-import com.example.newsapp.presentation.onboarding.components.PageIndicator
+import com.example.newsapp.presentation.onboarding.OnBoardingEvents
 import com.example.newsapp.presentation.onboarding.components.pages
 import kotlinx.coroutines.launch
 
