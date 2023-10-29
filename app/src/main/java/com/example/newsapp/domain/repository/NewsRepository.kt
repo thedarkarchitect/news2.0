@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
     fun getNews(sources: List<String>) : Flow<PagingData<Article>>//receive data as a flow in paging data format
+
+    fun searchNews(searchQuery: String ,sources: List<String>) : Flow<PagingData<Article>>
 }
