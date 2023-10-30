@@ -28,4 +28,17 @@
         </activity>
     </application>
 
+    <queries>
+<!--        this helps will opening up the article in the browser-->
+        <intent>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+<!--        this will help with sharing the content details-->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+        </intent>
+    </queries>
+
 </manifest>
