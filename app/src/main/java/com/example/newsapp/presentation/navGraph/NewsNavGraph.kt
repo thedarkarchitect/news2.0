@@ -6,10 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.example.newsapp.presentation.news_navigaor.components.NewsNavigator
 import com.example.newsapp.presentation.onboarding.OnBoardingViewModel
 import com.example.newsapp.presentation.onboarding.components.OnBoardingScreen
-import com.example.newsapp.presentation.search.SearchViewModel
-import com.example.newsapp.presentation.search.components.SearchScreen
 
 
 @Composable
@@ -30,10 +29,10 @@ fun NewsNavGraph(
             composable(
                 route = ScreenRoute.OnBoardingScreen.route
             ){
-                val viewModel: OnBoardingViewModel = hiltViewModel()
-                    OnBoardingScreen(
-                        event = viewModel::onEvent
-                    )
+                val viewModel = hiltViewModel<OnBoardingViewModel>()
+                OnBoardingScreen(
+                    event = viewModel::onEvent
+                )
             }
         }
 
@@ -44,12 +43,7 @@ fun NewsNavGraph(
             composable(
                 route = ScreenRoute.NewsNavigatorScreen.route
             ){
-                val viewModel: SearchViewModel = hiltViewModel()
-                SearchScreen(
-                    state = viewModel.state.value,
-                    event = viewModel::onEvent,
-                    navigate = {}
-                )
+                NewsNavigator()
             }
         }
 

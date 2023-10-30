@@ -34,7 +34,8 @@ import com.example.newsapp.utils.Dimen.MediumPadding1
 fun HomeScreen(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,
-    navigate: (String) -> Unit
+    navigateToSearch: () -> Unit,
+    navigateToDetails: (Article) -> Unit
 ) {
     val titles by remember {//this will be stateful to grab titles and string them across screen
         derivedStateOf {
@@ -71,7 +72,7 @@ fun HomeScreen(
             readOnly = true,
             onValueChange = {},
             onClick = {
-                navigate(ScreenRoute.SearchScreen.route) // this takes you to the search screen on click
+                navigateToSearch() // this takes you to the search screen on click
             },
             onSearch = {
 
@@ -95,8 +96,8 @@ fun HomeScreen(
         ArticleList(
             modifier = Modifier.padding(horizontal = MediumPadding1),
             articles = articles,
-            onClick = {
-                navigate(ScreenRoute.DetailsScreen.route)
+            onClick = { article ->
+                navigateToDetails(article)
             }
         )
 

@@ -13,9 +13,13 @@ import com.example.newsapp.domain.repository.NewsRepository
 import com.example.newsapp.domain.useCases.app_entry.AppEntryUseCases
 import com.example.newsapp.domain.useCases.app_entry.ReadAppEntry
 import com.example.newsapp.domain.useCases.app_entry.SaveAppEntry
+import com.example.newsapp.domain.useCases.news.DeleteArticle
 import com.example.newsapp.domain.useCases.news.GetNews
 import com.example.newsapp.domain.useCases.news.NewsUseCases
 import com.example.newsapp.domain.useCases.news.SearchNews
+import com.example.newsapp.domain.useCases.news.SelectArticle
+import com.example.newsapp.domain.useCases.news.SelectArticles
+import com.example.newsapp.domain.useCases.news.UpsertArticle
 import com.example.newsapp.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -62,20 +66,25 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNewsRepository(
-        newsApi: NewsApi
+        newsApi: NewsApi,
+        newsDao: NewsDao
     ): NewsRepository{
-        return NewsRepositoryImpl(newsApi = newsApi)
+        return NewsRepositoryImpl(newsApi = newsApi, newsDao = newsDao)
     }
 
 
     @Provides
     @Singleton
     fun provideNewsUseCases(
-        newsRepository: NewsRepository
+        newsRepository: NewsRepository,
     ): NewsUseCases{
         return NewsUseCases(
             getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository)
+            searchNews = SearchNews(newsRepository),
+            selectArticles = SelectArticles(newsRepository),
+            deleteArticle = DeleteArticle(newsRepository),
+            upsertArticle = UpsertArticle(newsRepository),
+            selectArticle = SelectArticle(newsRepository)
         )
     }
 

@@ -36,12 +36,12 @@ import com.example.newsapp.utils.Dimen.SmallIconSize
 fun ArticleCard(
     modifier: Modifier = Modifier,
     article: Article,
-    onClick: () -> Unit
+    onClick: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
 
     Row (
-        modifier = modifier.clickable { onClick }
+        modifier = modifier.clickable { onClick?.invoke() }
     ) {
         AsyncImage(
             modifier = modifier
