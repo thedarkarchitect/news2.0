@@ -1,5 +1,8 @@
 package com.example.newsapp.presentation.home.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
@@ -11,8 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -26,14 +31,18 @@ import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.presentation.common.ArticleList
 import com.example.newsapp.presentation.common.SearchBar
-import com.example.newsapp.presentation.navGraph.ScreenRoute
+import com.example.newsapp.presentation.home.HomeEvent
+import com.example.newsapp.presentation.home.HomeState
 import com.example.newsapp.utils.Dimen.MediumPadding1
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,
+    state: HomeState,
+    event: (HomeEvent) -> Unit,
     navigateToSearch: () -> Unit,
     navigateToDetails: (Article) -> Unit
 ) {
@@ -42,7 +51,7 @@ fun HomeScreen(
             if (articles.itemCount > 10) {
                 articles.itemSnapshotList.items
                     .slice(IntRange(start = 0, endInclusive = 9))
-                    .joinToString(separator = " \u083d\uDFE5 "){ article ->
+                    .joinToString(separator = " \uD83D\uDFE5 "){ article ->
                         article.title
                     }
             }else {
@@ -74,12 +83,12 @@ fun HomeScreen(
             onClick = {
                 navigateToSearch() // this takes you to the search screen on click
             },
-            onSearch = {
-
-            }
+            onSearch = {}
         )
 
         Spacer(modifier = modifier.height(MediumPadding1))
+
+        val scrollState = rememberScrollState(initial = state.scrollValue)
 
         Text(
             text = titles,
@@ -90,6 +99,31 @@ fun HomeScreen(
             fontSize = 12.sp,
             color = Color.Black
         )
+
+        // Update the maxScrollingValue
+        LaunchedEffect(key1 = scrollState.maxValue) {
+            event(HomeEvent.UpdateMaxScrollingValue(scrollState.maxValue))
+        }
+        // Save the state of the scrolling position
+        LaunchedEffect(key1 = scrollState.value) {
+            event(HomeEvent.UpdateScrollValue(scrollState.value))
+        }
+        // Animate the scrolling
+        LaunchedEffect(key1 = state.maxScrollingValue) {
+            delay(500)
+            if (state.maxScrollingValue > 0) {
+                scrollState.animateScrollTo(
+                    value = state.maxScrollingValue,
+                    animationSpec = infiniteRepeatable(
+                        tween(
+                            durationMillis = (state.maxScrollingValue - state.scrollValue) * 50_000 / state.maxScrollingValue,
+                            easing = LinearEasing,
+                            delayMillis = 1000
+                        )
+                    )
+                )
+            }
+        }
 
         Spacer(modifier = modifier.height(MediumPadding1))
 

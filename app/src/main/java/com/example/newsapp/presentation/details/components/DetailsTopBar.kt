@@ -1,4 +1,4 @@
-package com.example.newsapp.presentation.details
+package com.example.newsapp.presentation.details.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -26,7 +26,7 @@ fun DetailsTopBar(
     onBackClick: () -> Unit
 ) {
     TopAppBar(
-        title = { /*TODO*/ },
+        title = {},
         modifier = modifier
             .fillMaxWidth(),
         colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -61,9 +61,7 @@ fun DetailsTopBar(
                     contentDescription = null
                 )
             }
-
         }
-
     )
 }
 

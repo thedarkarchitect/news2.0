@@ -5,4 +5,5 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
     id("com.google.dagger.hilt.android") version "2.48" apply false
+    id("com.google.android.secrets-gradle-plugin") version "1.1.0"
 }

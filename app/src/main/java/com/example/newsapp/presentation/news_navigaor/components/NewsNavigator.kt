@@ -1,6 +1,6 @@
 package com.example.newsapp.presentation.news_navigaor.components
 
-import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -8,7 +8,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -20,7 +19,6 @@ import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.presentation.bookmark.BookMarkViewModel
 import com.example.newsapp.presentation.bookmark.components.BookmarkScreen
-import com.example.newsapp.presentation.details.DetailsEvent
 import com.example.newsapp.presentation.details.DetailsViewModel
 import com.example.newsapp.presentation.details.components.DetailsScreen
 import com.example.newsapp.presentation.home.HomeViewModel
@@ -112,13 +110,16 @@ fun NewsNavigator() {
                             navController = navController
                             ,article = article
                         )
-                    }
+                    },
+                    event = viewModel::onEvent,
+                    state = viewModel.state.value
                 )
             }
 
             composable(route = ScreenRoute.SearchScreen.route){
                 val viewModel = hiltViewModel<SearchViewModel>()
                 val state = viewModel.state.value
+                OnBackClickStateSaver(navController = navController)
                 SearchScreen(
                     state = state,
                     event = viewModel::onEvent,
@@ -134,16 +135,17 @@ fun NewsNavigator() {
             composable(route = ScreenRoute.DetailsScreen.route){
                 val viewModel = hiltViewModel<DetailsViewModel>()
                 //TODO: Handle side effect
-                if(viewModel.sideEffect != null){
-                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
-                    viewModel.onEvent(DetailsEvent.RemoveSideEffect)
-                }
+//                if(viewModel.sideEffect != null){
+//                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
+//                    viewModel.onEvent(DetailsEvent.RemoveSideEffect)
+//                }
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
                             event = viewModel::onEvent,
-                            navigateUp = { navController.navigateUp() }
+                            navigateUp = { navController.navigateUp() },
+                            sideEffect = viewModel.sideEffect
                         )
                     }
             }
@@ -163,6 +165,16 @@ fun NewsNavigator() {
             }
 
         }
+    }
+}
+
+@Composable
+fun OnBackClickStateSaver(navController: NavController) {
+    BackHandler(true) {
+        navigateToTab(
+            navController = navController,
+            route = ScreenRoute.HomeScreen.route
+        )
     }
 }
 

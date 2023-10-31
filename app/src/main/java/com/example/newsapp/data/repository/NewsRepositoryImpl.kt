@@ -10,7 +10,6 @@ import com.example.newsapp.data.remote.SearchNewsPagingSource
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onEach
 
 class NewsRepositoryImpl (
     private val newsApi: NewsApi,
@@ -42,11 +41,11 @@ class NewsRepositoryImpl (
     }
 
     override suspend fun upsertArticle(article: Article) {
-        newsDao.upsert(article)
+        newsDao.upsert(article = article)
     }
 
     override suspend fun deleteArticle(article: Article) {
-        newsDao.delete(article)
+        newsDao.delete(article = article)
     }
 
     override fun selectArticles(): Flow<List<Article>> {
@@ -54,6 +53,6 @@ class NewsRepositoryImpl (
     }
 
     override suspend fun selectArticle(url: String): Article? {
-        return newsDao.getArticle(url)
+        return newsDao.getArticle(url = url)
     }
 }

@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("com.google.android.secrets-gradle-plugin")
 }
 
 android {
@@ -21,11 +22,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+//        buildConfigField("string", "apiKey", "")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
